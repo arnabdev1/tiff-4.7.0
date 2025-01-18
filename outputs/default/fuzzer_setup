@@ -1,0 +1,8 @@
+# environment variables:
+AFL_CUSTOM_INFO_PROGRAM=./tools/tiffcp
+AFL_CUSTOM_INFO_PROGRAM_ARGV=@@ out.tif
+AFL_CUSTOM_INFO_OUT=outputs/default
+AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES=1
+AFL_SKIP_CPUFREQ=1
+# command line:
+'/home/arnab/Aflplusplus/AFLplusplus/afl-fuzz' '-i' './s_libtiff/' '-o' 'outputs' './tools/tiffcp' '@@' 'out.tif'
