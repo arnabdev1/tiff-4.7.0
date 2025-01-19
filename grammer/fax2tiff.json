@@ -1,0 +1,32 @@
+{
+    "cmdline": "$inopts $INPUTFILE",
+    "connector": "=",
+    "strmax": 3,
+    "options": [
+        {
+            "opt": "-m",
+            "type": "bool"
+        },
+        {
+            "opt": "-l",
+            "type": "bool"
+        },
+        {
+            "opt": "-s",
+            "type": "bool"
+        },
+        {
+            "opt": "-v",
+            "type": "bool"
+        },
+        {
+            "opt": "-z",
+            "type": "bool"
+        }
+    ],
+    "depend": [],
+    "conflict": [
+        []
+    ],
+    "maxcombs": 2
+}
