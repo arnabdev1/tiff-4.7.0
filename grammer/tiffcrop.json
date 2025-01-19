@@ -1,0 +1,44 @@
+{
+    "cmdline": "$inopts $INPUTFILE $INPUTFILE out.tif",
+    "connector": "=",
+    "strmax": 3,
+    "options": [
+        {
+            "opt": "-a",
+            "type": "bool"
+        },
+        {
+            "opt": "-B",
+            "type": "bool"
+        },
+        {
+            "opt": "-L",
+            "type": "bool"
+        },
+        {
+            "opt": "-M",
+            "type": "bool"
+        },
+        {
+            "opt": "-C",
+            "type": "bool"
+        },
+        {
+            "opt": "-s",
+            "type": "bool"
+        },
+        {
+            "opt": "-t",
+            "type": "bool"
+        },
+        {
+            "opt": "-i",
+            "type": "bool"
+        }
+    ],
+    "depend": [],
+    "conflict": [
+        []
+    ],
+    "maxcombs": 8
+}

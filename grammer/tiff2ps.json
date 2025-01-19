@@ -1,0 +1,72 @@
+{
+    "cmdline": "$inopts $INPUTFILE",
+    "connector": "=",
+    "strmax": 3,
+    "options": [
+        {
+            "opt": "-1",
+            "type": "bool"
+        },
+        {
+            "opt": "-2",
+            "type": "bool"
+        },
+        {
+            "opt": "-3",
+            "type": "bool"
+        },
+        {
+            "opt": "-8",
+            "type": "bool"
+        },
+        {
+            "opt": "-a",
+            "type": "bool"
+        },
+        {
+            "opt": "-c",
+            "type": "bool"
+        },
+        {
+            "opt": "-D",
+            "type": "bool"
+        },
+        {
+            "opt": "-e",
+            "type": "bool"
+        },
+        {
+            "opt": "-m",
+            "type": "bool"
+        },
+        {
+            "opt": "-p",
+            "type": "bool"
+        },
+        {
+            "opt": "-s",
+            "type": "bool"
+        },
+        {
+            "opt": "-T",
+            "type": "bool"
+        },
+        {
+            "opt": "-x",
+            "type": "bool"
+        },
+        {
+            "opt": "-y",
+            "type": "bool"
+        },
+        {
+            "opt": "-z",
+            "type": "bool"
+        }
+    ],
+    "depend": [],
+    "conflict": [
+        []
+    ],
+    "maxcombs": 15
+}
