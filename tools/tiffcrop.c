@@ -1,3 +1,6 @@
+
+// removed m:Z:z:D:
+
 /* clang-format off */
 /* tiffcrop.c -- a port of tiffcp.c extended to include manipulations of
  * the image data through additional options listed below
@@ -1845,12 +1848,13 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
     extern int optind;
     extern char *optarg;
 #endif
-
+// removed m:Z:z:D:
+// S:
     *mp++ = 'w';
     *mp = '\0';
     while ((c = getopt(argc, argv,
-                       "ac:d:e:f:hik:l:m:p:r:stvw:z:BCD:E:F:H:I:J:K:LMN:O:P:R:"
-                       "S:U:V:X:Y:Z:")) != -1)
+                       "ac:d:e:f:hik:l:p:r:stvw:BCE:F:H:I:J:K:LMN:O:P:R:"
+                       "U:V:X:Y:")) != -1)
     {
         good_args++;
         switch (c)
@@ -1891,10 +1895,10 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
                         crop_data->exp_mode = FILE_PER_IMAGE_COMPOSITE;
                         crop_data->img_mode = COMPOSITE_IMAGES;
                         break; /* Image */
-                    case 'm':
-                        crop_data->exp_mode = FILE_PER_IMAGE_SEPARATED;
-                        crop_data->img_mode = SEPARATED_IMAGES;
-                        break; /* Multiple */
+                    // case 'm':
+                    //     crop_data->exp_mode = FILE_PER_IMAGE_SEPARATED;
+                    //     crop_data->img_mode = SEPARATED_IMAGES;
+                    //     break; /* Multiple */
                     case 's':
                         crop_data->exp_mode = FILE_PER_SELECTION;
                         crop_data->img_mode = SEPARATED_IMAGES;
@@ -1964,36 +1968,36 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
                 outtiled = TRUE;
                 *deftilewidth = atoi(optarg);
                 break;
-            case 'z': /* regions of an image specified as
-                         x1,y1,x2,y2:x3,y3,x4,y4 etc */
-                crop_data->crop_mode |= CROP_REGIONS;
-                for (i = 0, opt_ptr = strtok(optarg, ":");
-                     ((opt_ptr != NULL) && (i < MAX_REGIONS));
-                     (opt_ptr = strtok(NULL, ":")), i++)
-                {
-                    crop_data->regions++;
-                    if (sscanf(opt_ptr, "%lf,%lf,%lf,%lf",
-                               &crop_data->corners[i].X1,
-                               &crop_data->corners[i].Y1,
-                               &crop_data->corners[i].X2,
-                               &crop_data->corners[i].Y2) != 4)
-                    {
-                        TIFFError("Unable to parse coordinates for region",
-                                  "%u %s", i, optarg);
-                        TIFFError("For valid options type", "tiffcrop -h");
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                /*  check for remaining elements over MAX_REGIONS */
-                if ((opt_ptr != NULL) && (i >= MAX_REGIONS))
-                {
-                    TIFFError("Region list exceeds limit of", "%d regions %s",
-                              MAX_REGIONS, optarg);
-                    TIFFError("For valid options type", "tiffcrop -h");
-                    exit(EXIT_FAILURE);
-                }
-                break;
-                /* options for file open modes */
+            // case 'z': /* regions of an image specified as
+            //              x1,y1,x2,y2:x3,y3,x4,y4 etc */
+            //     crop_data->crop_mode |= CROP_REGIONS;
+            //     for (i = 0, opt_ptr = strtok(optarg, ":");
+            //          ((opt_ptr != NULL) && (i < MAX_REGIONS));
+            //          (opt_ptr = strtok(NULL, ":")), i++)
+            //     {
+            //         crop_data->regions++;
+            //         if (sscanf(opt_ptr, "%lf,%lf,%lf,%lf",
+            //                    &crop_data->corners[i].X1,
+            //                    &crop_data->corners[i].Y1,
+            //                    &crop_data->corners[i].X2,
+            //                    &crop_data->corners[i].Y2) != 4)
+            //         {
+            //             TIFFError("Unable to parse coordinates for region",
+            //                       "%u %s", i, optarg);
+            //             TIFFError("For valid options type", "tiffcrop -h");
+            //             exit(EXIT_FAILURE);
+            //         }
+            //     }
+            //     /*  check for remaining elements over MAX_REGIONS */
+            //     if ((opt_ptr != NULL) && (i >= MAX_REGIONS))
+            //     {
+            //         TIFFError("Region list exceeds limit of", "%d regions %s",
+            //                   MAX_REGIONS, optarg);
+            //         TIFFError("For valid options type", "tiffcrop -h");
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     break;
+            //     /* options for file open modes */
             case 'B':
             {
                 if (mp < mode + MAX_MODESTRING_LEN)
@@ -2063,90 +2067,90 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
             }
             break;
             /* options for Debugging / data dump */
-            case 'D':
-                for (i = 0, opt_ptr = strtok(optarg, ","); (opt_ptr != NULL);
-                     (opt_ptr = strtok(NULL, ",")), i++)
-                {
-                    opt_offset = strpbrk(opt_ptr, ":=");
-                    if (opt_offset == NULL)
-                    {
-                        TIFFError("Invalid dump option", "%s", optarg);
-                        TIFFError("For valid options type", "tiffcrop -h");
-                        exit(EXIT_FAILURE);
-                    }
+            // case 'D':
+            //     for (i = 0, opt_ptr = strtok(optarg, ","); (opt_ptr != NULL);
+            //          (opt_ptr = strtok(NULL, ",")), i++)
+            //     {
+            //         opt_offset = strpbrk(opt_ptr, ":=");
+            //         if (opt_offset == NULL)
+            //         {
+            //             TIFFError("Invalid dump option", "%s", optarg);
+            //             TIFFError("For valid options type", "tiffcrop -h");
+            //             exit(EXIT_FAILURE);
+            //         }
 
-                    *opt_offset = '\0';
-                    /* convert option to lowercase */
-                    end = (unsigned int)strlen(opt_ptr);
-                    for (i = 0; i < end; i++)
-                        *(opt_ptr + i) = tolower((int)*(opt_ptr + i));
-                    /* Look for dump format specification */
-                    if (strncmp(opt_ptr, "for", 3) == 0)
-                    {
-                        /* convert value to lowercase */
-                        end = (unsigned int)strlen(opt_offset + 1);
-                        for (i = 1; i <= end; i++)
-                            *(opt_offset + i) = tolower((int)*(opt_offset + i));
-                        /* check dump format value */
-                        if (strncmp(opt_offset + 1, "txt", 3) == 0)
-                        {
-                            dump->format = DUMP_TEXT;
-                            strcpy(dump->mode, "w");
-                        }
-                        else
-                        {
-                            if (strncmp(opt_offset + 1, "raw", 3) == 0)
-                            {
-                                dump->format = DUMP_RAW;
-                                strcpy(dump->mode, "wb");
-                            }
-                            else
-                            {
-                                TIFFError("parse_command_opts",
-                                          "Unknown dump format %s",
-                                          opt_offset + 1);
-                                TIFFError("For valid options type",
-                                          "tiffcrop -h");
-                                exit(EXIT_FAILURE);
-                            }
-                        }
-                    }
-                    else
-                    { /* Look for dump level specification */
-                        if (strncmp(opt_ptr, "lev", 3) == 0)
-                            dump->level = atoi(opt_offset + 1);
-                        /* Look for input data dump file name */
-                        if (strncmp(opt_ptr, "in", 2) == 0)
-                        {
-                            strncpy(dump->infilename, opt_offset + 1,
-                                    PATH_MAX - 20);
-                            dump->infilename[PATH_MAX - 20] = '\0';
-                        }
-                        /* Look for output data dump file name */
-                        if (strncmp(opt_ptr, "out", 3) == 0)
-                        {
-                            strncpy(dump->outfilename, opt_offset + 1,
-                                    PATH_MAX - 20);
-                            dump->outfilename[PATH_MAX - 20] = '\0';
-                        }
-                        if (strncmp(opt_ptr, "deb", 3) == 0)
-                            dump->debug = atoi(opt_offset + 1);
-                    }
-                }
-                if ((strlen(dump->infilename)) || (strlen(dump->outfilename)))
-                {
-                    if (dump->level == 1)
-                        TIFFError("", "Defaulting to dump level 1, no data.");
-                    if (dump->format == DUMP_NONE)
-                    {
-                        TIFFError(
-                            "",
-                            "You must specify a dump format for dump files");
-                        TIFFError("For valid options type", "tiffcrop -h");
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                break;
+            //         *opt_offset = '\0';
+            //         /* convert option to lowercase */
+            //         end = (unsigned int)strlen(opt_ptr);
+            //         for (i = 0; i < end; i++)
+            //             *(opt_ptr + i) = tolower((int)*(opt_ptr + i));
+            //         /* Look for dump format specification */
+            //         if (strncmp(opt_ptr, "for", 3) == 0)
+            //         {
+            //             /* convert value to lowercase */
+            //             end = (unsigned int)strlen(opt_offset + 1);
+            //             for (i = 1; i <= end; i++)
+            //                 *(opt_offset + i) = tolower((int)*(opt_offset + i));
+            //             /* check dump format value */
+            //             if (strncmp(opt_offset + 1, "txt", 3) == 0)
+            //             {
+            //                 dump->format = DUMP_TEXT;
+            //                 strcpy(dump->mode, "w");
+            //             }
+            //             else
+            //             {
+            //                 if (strncmp(opt_offset + 1, "raw", 3) == 0)
+            //                 {
+            //                     dump->format = DUMP_RAW;
+            //                     strcpy(dump->mode, "wb");
+            //                 }
+            //                 else
+            //                 {
+            //                     TIFFError("parse_command_opts",
+            //                               "Unknown dump format %s",
+            //                               opt_offset + 1);
+            //                     TIFFError("For valid options type",
+            //                               "tiffcrop -h");
+            //                     exit(EXIT_FAILURE);
+            //                 }
+            //             }
+            //         }
+            //         else
+            //         { /* Look for dump level specification */
+            //             if (strncmp(opt_ptr, "lev", 3) == 0)
+            //                 dump->level = atoi(opt_offset + 1);
+            //             /* Look for input data dump file name */
+            //             if (strncmp(opt_ptr, "in", 2) == 0)
+            //             {
+            //                 strncpy(dump->infilename, opt_offset + 1,
+            //                         PATH_MAX - 20);
+            //                 dump->infilename[PATH_MAX - 20] = '\0';
+            //             }
+            //             /* Look for output data dump file name */
+            //             if (strncmp(opt_ptr, "out", 3) == 0)
+            //             {
+            //                 strncpy(dump->outfilename, opt_offset + 1,
+            //                         PATH_MAX - 20);
+            //                 dump->outfilename[PATH_MAX - 20] = '\0';
+            //             }
+            //             if (strncmp(opt_ptr, "deb", 3) == 0)
+            //                 dump->debug = atoi(opt_offset + 1);
+            //         }
+            //     }
+            //     if ((strlen(dump->infilename)) || (strlen(dump->outfilename)))
+            //     {
+            //         if (dump->level == 1)
+            //             TIFFError("", "Defaulting to dump level 1, no data.");
+            //         if (dump->format == DUMP_NONE)
+            //         {
+            //             TIFFError(
+            //                 "",
+            //                 "You must specify a dump format for dump files");
+            //             TIFFError("For valid options type", "tiffcrop -h");
+            //             exit(EXIT_FAILURE);
+            //         }
+            //     }
+            //     break;
 
             /* image manipulation routine options */
             case 'm': /* margins to exclude from selection, uppercase M was
@@ -2375,35 +2379,35 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
                         exit(EXIT_FAILURE);
                 }
                 break;
-            case 'S': /* subdivide into Cols:Rows sections, eg 3:2 would be 3
-                         across and 2 down */
-                sep = strpbrk(optarg, ",:");
-                if (sep)
-                {
-                    *sep = '\0';
-                    page->cols = atoi(optarg);
-                    page->rows = atoi(sep + 1);
-                }
-                else
-                {
-                    page->cols = atoi(optarg);
-                    page->rows = atoi(optarg);
-                }
-                if ((page->cols * page->rows) > MAX_SECTIONS)
-                {
-                    TIFFError(
-                        "Limit for subdivisions, ie rows x columns, exceeded",
-                        "%d", MAX_SECTIONS);
-                    exit(EXIT_FAILURE);
-                }
-                if ((page->cols * page->rows) < 1)
-                {
-                    TIFFError("No subdivisions", "%d",
-                              (page->cols * page->rows));
-                    exit(EXIT_FAILURE);
-                }
-                page->mode |= PAGE_MODE_ROWSCOLS;
-                break;
+            // case 'S': /* subdivide into Cols:Rows sections, eg 3:2 would be 3
+            //              across and 2 down */
+            //     sep = strpbrk(optarg, ",:");
+            //     if (sep)
+            //     {
+            //         *sep = '\0';
+            //         page->cols = atoi(optarg);
+            //         page->rows = atoi(sep + 1);
+            //     }
+            //     else
+            //     {
+            //         page->cols = atoi(optarg);
+            //         page->rows = atoi(optarg);
+            //     }
+            //     if ((page->cols * page->rows) > MAX_SECTIONS)
+            //     {
+            //         TIFFError(
+            //             "Limit for subdivisions, ie rows x columns, exceeded",
+            //             "%d", MAX_SECTIONS);
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     if ((page->cols * page->rows) < 1)
+            //     {
+            //         TIFFError("No subdivisions", "%d",
+            //                   (page->cols * page->rows));
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     page->mode |= PAGE_MODE_ROWSCOLS;
+            //     break;
             case 'U': /* units for measurements and offsets */
                 if (streq(optarg, "in"))
                 {
@@ -2439,32 +2443,32 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
                 crop_data->crop_mode |= CROP_LENGTH;
                 crop_data->length = atof(optarg);
                 break;
-            case 'Z': /* zones of an image X:Y read as zone X of Y */
-                crop_data->crop_mode |= CROP_ZONES;
-                for (i = 0, opt_ptr = strtok(optarg, ",");
-                     ((opt_ptr != NULL) && (i < MAX_REGIONS));
-                     (opt_ptr = strtok(NULL, ",")), i++)
-                {
-                    crop_data->zones++;
-                    opt_offset = strchr(opt_ptr, ':');
-                    if (!opt_offset)
-                    {
-                        TIFFError("Wrong parameter syntax for -Z",
-                                  "tiffcrop -h");
-                        exit(EXIT_FAILURE);
-                    }
-                    *opt_offset = '\0';
-                    crop_data->zonelist[i].position = atoi(opt_ptr);
-                    crop_data->zonelist[i].total = atoi(opt_offset + 1);
-                }
-                /*  check for remaining elements over MAX_REGIONS */
-                if ((opt_ptr != NULL) && (i >= MAX_REGIONS))
-                {
-                    TIFFError("Zone list exceeds region limit", "%d",
-                              MAX_REGIONS);
-                    exit(EXIT_FAILURE);
-                }
-                break;
+            // case 'Z': /* zones of an image X:Y read as zone X of Y */
+            //     crop_data->crop_mode |= CROP_ZONES;
+            //     for (i = 0, opt_ptr = strtok(optarg, ",");
+            //          ((opt_ptr != NULL) && (i < MAX_REGIONS));
+            //          (opt_ptr = strtok(NULL, ",")), i++)
+            //     {
+            //         crop_data->zones++;
+            //         opt_offset = strchr(opt_ptr, ':');
+            //         if (!opt_offset)
+            //         {
+            //             TIFFError("Wrong parameter syntax for -Z",
+            //                       "tiffcrop -h");
+            //             exit(EXIT_FAILURE);
+            //         }
+            //         *opt_offset = '\0';
+            //         crop_data->zonelist[i].position = atoi(opt_ptr);
+            //         crop_data->zonelist[i].total = atoi(opt_offset + 1);
+            //     }
+            //     /*  check for remaining elements over MAX_REGIONS */
+            //     if ((opt_ptr != NULL) && (i >= MAX_REGIONS))
+            //     {
+            //         TIFFError("Zone list exceeds region limit", "%d",
+            //                   MAX_REGIONS);
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     break;
             case '?':
                 TIFFError("For valid options type", "tiffcrop -h");
                 exit(EXIT_FAILURE);

@@ -1,3 +1,5 @@
+// removed b:,:
+
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -221,7 +223,8 @@ int main(int argc, char *argv[])
 
     *mp++ = 'w';
     *mp = '\0';
-    while ((c = getopt(argc, argv, "m:,:b:c:f:l:o:p:r:w:aistBLMC8xh")) != -1)
+    // removed b:,:
+    while ((c = getopt(argc, argv, "m:c:f:l:o:p:r:w:aistBLMC8xh")) != -1)
         switch (c)
         {
             case 'm':
@@ -232,32 +235,32 @@ int main(int argc, char *argv[])
                     usage(EXIT_FAILURE);
                 comma = optarg[1];
                 break;
-            case 'b': /* this file is bias image subtracted from others */
-                if (bias)
-                {
-                    fputs("Only 1 bias image may be specified\n", stderr);
-                    exit(EXIT_FAILURE);
-                }
-                {
-                    uint16_t samples = (uint16_t)-1;
-                    char **biasFn = &optarg;
-                    bias = openSrcImage(biasFn);
-                    if (!bias)
-                        exit(EXIT_FAILURE);
-                    if (TIFFIsTiled(bias))
-                    {
-                        fputs("Bias image must be organized in strips\n",
-                              stderr);
-                        exit(EXIT_FAILURE);
-                    }
-                    TIFFGetField(bias, TIFFTAG_SAMPLESPERPIXEL, &samples);
-                    if (samples != 1)
-                    {
-                        fputs("Bias image must be monochrome\n", stderr);
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                break;
+            // case 'b': /* this file is bias image subtracted from others */
+            //     if (bias)
+            //     {
+            //         fputs("Only 1 bias image may be specified\n", stderr);
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     {
+            //         uint16_t samples = (uint16_t)-1;
+            //         char **biasFn = &optarg;
+            //         bias = openSrcImage(biasFn);
+            //         if (!bias)
+            //             exit(EXIT_FAILURE);
+            //         if (TIFFIsTiled(bias))
+            //         {
+            //             fputs("Bias image must be organized in strips\n",
+            //                   stderr);
+            //             exit(EXIT_FAILURE);
+            //         }
+            //         TIFFGetField(bias, TIFFTAG_SAMPLESPERPIXEL, &samples);
+            //         if (samples != 1)
+            //         {
+            //             fputs("Bias image must be monochrome\n", stderr);
+            //             exit(EXIT_FAILURE);
+            //         }
+            //     }
+            //     break;
             case 'a': /* append to output */
                 mode[0] = 'a';
                 break;

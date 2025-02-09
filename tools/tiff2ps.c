@@ -1,3 +1,4 @@
+// removed t:C:O:
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -280,9 +281,9 @@ int main(int argc, char *argv[])
     FILE *output = stdout;
 
     pageOrientation[0] = '\0';
-
+// removed t:C:O:
     while ((c = getopt(argc, argv,
-                       "b:d:h:H:W:L:M:i:w:l:o:O:P:C:r:t:acemxyzps1238DT")) !=
+                       "b:d:h:H:W:L:M:i:w:l:o:P:r:acemxyzps1238DT")) !=
            -1)
         switch (c)
         {
@@ -295,9 +296,9 @@ int main(int argc, char *argv[])
             case 'c':
                 centered = 1;
                 break;
-            case 'C':
-                creator = optarg;
-                break;
+            // case 'C':
+            //     creator = optarg;
+            //     break;
             case 'd': /* without -a, this only processes one image at this IFD
                        */
                 dirnum = atoi(optarg);
@@ -350,15 +351,15 @@ int main(int argc, char *argv[])
                         exit(EXIT_FAILURE);
                 }
                 break;
-            case 'O': /* XXX too bad -o is already taken */
-                output = fopen(optarg, "w");
-                if (output == NULL)
-                {
-                    fprintf(stderr, "%s: %s: Cannot open output file.\n",
-                            argv[0], optarg);
-                    exit(EXIT_FAILURE);
-                }
-                break;
+            // case 'O': /* XXX too bad -o is already taken */
+            //     output = fopen(optarg, "w");
+            //     if (output == NULL)
+            //     {
+            //         fprintf(stderr, "%s: %s: Cannot open output file.\n",
+            //                 argv[0], optarg);
+            //         exit(EXIT_FAILURE);
+            //     }
+            //     break;
             case 'P':
                 switch (optarg[0])
                 {
@@ -414,9 +415,9 @@ int main(int argc, char *argv[])
             case 's':
                 printAll = FALSE;
                 break;
-            case 't':
-                title = optarg;
-                break;
+            // case 't':
+            //     title = optarg;
+            //     break;
             case 'w':
                 pageWidth = atof(optarg);
                 break;

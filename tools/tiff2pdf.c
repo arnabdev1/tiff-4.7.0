@@ -1,3 +1,4 @@
+// removed o:p:e:c:a:t:s:k:
 /*
  *
  * tiff2pdf - converts a TIFF image to a PDF document
@@ -679,19 +680,19 @@ int main(int argc, char **argv)
         TIFFError(TIFF2PDF_MODULE, "Can't initialize context");
         goto fail;
     }
-
+    // removed o:p:e:c:a:t:s:k:
     while (argv &&
            (c = getopt(argc, argv,
-                       "m:o:q:u:x:y:w:l:r:p:e:c:a:t:s:k:jzndifbhF")) != -1)
+                       "m:q:u:x:y:w:l:r:jzndifbhF")) != -1)
     {
         switch (c)
         {
             case 'm':
                 t2p->tiff_maxdatasize = (tsize_t)strtoul(optarg, NULL, 0) << 20;
                 break;
-            case 'o':
-                outfilename = optarg;
-                break;
+            // case 'o':
+            //     outfilename = optarg;
+            //     break;
 #ifdef JPEG_SUPPORT
             case 'j':
                 t2p->pdf_defaultcompression = T2P_COMPRESS_JPEG;
@@ -757,20 +758,20 @@ int main(int argc, char **argv)
                     t2p->pdf_overrideres = 1;
                 }
                 break;
-            case 'p':
-                if (tiff2pdf_match_paper_size(&(t2p->pdf_defaultpagewidth),
-                                              &(t2p->pdf_defaultpagelength),
-                                              optarg))
-                {
-                    t2p->pdf_overridepagesize = 1;
-                }
-                else
-                {
-                    TIFFWarning(TIFF2PDF_MODULE,
-                                "Unknown paper size %s, ignoring option",
-                                optarg);
-                }
-                break;
+            // case 'p':
+            //     if (tiff2pdf_match_paper_size(&(t2p->pdf_defaultpagewidth),
+            //                                   &(t2p->pdf_defaultpagelength),
+            //                                   optarg))
+            //     {
+            //         t2p->pdf_overridepagesize = 1;
+            //     }
+            //     else
+            //     {
+            //         TIFFWarning(TIFF2PDF_MODULE,
+            //                     "Unknown paper size %s, ignoring option",
+            //                     optarg);
+            //     }
+            //     break;
             case 'i':
                 t2p->pdf_colorspace_invert = 1;
                 break;
@@ -780,46 +781,46 @@ int main(int argc, char **argv)
             case 'f':
                 t2p->pdf_fitwindow = 1;
                 break;
-            case 'e':
-                if (strlen(optarg) == 0)
-                {
-                    t2p->pdf_datetime[0] = '\0';
-                }
-                else
-                {
-                    t2p->pdf_datetime[0] = 'D';
-                    t2p->pdf_datetime[1] = ':';
-                    strncpy(t2p->pdf_datetime + 2, optarg,
-                            sizeof(t2p->pdf_datetime) - 3);
-                    t2p->pdf_datetime[sizeof(t2p->pdf_datetime) - 1] = '\0';
-                }
-                break;
-            case 'c':
-                strncpy(t2p->pdf_creator, optarg, sizeof(t2p->pdf_creator) - 1);
-                t2p->pdf_creator[sizeof(t2p->pdf_creator) - 1] = '\0';
-                t2p->pdf_creator_set = 1;
-                break;
-            case 'a':
-                strncpy(t2p->pdf_author, optarg, sizeof(t2p->pdf_author) - 1);
-                t2p->pdf_author[sizeof(t2p->pdf_author) - 1] = '\0';
-                t2p->pdf_author_set = 1;
-                break;
-            case 't':
-                strncpy(t2p->pdf_title, optarg, sizeof(t2p->pdf_title) - 1);
-                t2p->pdf_title[sizeof(t2p->pdf_title) - 1] = '\0';
-                t2p->pdf_title_set = 1;
-                break;
-            case 's':
-                strncpy(t2p->pdf_subject, optarg, sizeof(t2p->pdf_subject) - 1);
-                t2p->pdf_subject[sizeof(t2p->pdf_subject) - 1] = '\0';
-                t2p->pdf_subject_set = 1;
-                break;
-            case 'k':
-                strncpy(t2p->pdf_keywords, optarg,
-                        sizeof(t2p->pdf_keywords) - 1);
-                t2p->pdf_keywords[sizeof(t2p->pdf_keywords) - 1] = '\0';
-                t2p->pdf_keywords_set = 1;
-                break;
+            // case 'e':
+            //     if (strlen(optarg) == 0)
+            //     {
+            //         t2p->pdf_datetime[0] = '\0';
+            //     }
+            //     else
+            //     {
+            //         t2p->pdf_datetime[0] = 'D';
+            //         t2p->pdf_datetime[1] = ':';
+            //         strncpy(t2p->pdf_datetime + 2, optarg,
+            //                 sizeof(t2p->pdf_datetime) - 3);
+            //         t2p->pdf_datetime[sizeof(t2p->pdf_datetime) - 1] = '\0';
+            //     }
+            //     break;
+            // case 'c':
+            //     strncpy(t2p->pdf_creator, optarg, sizeof(t2p->pdf_creator) - 1);
+            //     t2p->pdf_creator[sizeof(t2p->pdf_creator) - 1] = '\0';
+            //     t2p->pdf_creator_set = 1;
+            //     break;
+            // case 'a':
+            //     strncpy(t2p->pdf_author, optarg, sizeof(t2p->pdf_author) - 1);
+            //     t2p->pdf_author[sizeof(t2p->pdf_author) - 1] = '\0';
+            //     t2p->pdf_author_set = 1;
+            //     break;
+            // case 't':
+            //     strncpy(t2p->pdf_title, optarg, sizeof(t2p->pdf_title) - 1);
+            //     t2p->pdf_title[sizeof(t2p->pdf_title) - 1] = '\0';
+            //     t2p->pdf_title_set = 1;
+            //     break;
+            // case 's':
+            //     strncpy(t2p->pdf_subject, optarg, sizeof(t2p->pdf_subject) - 1);
+            //     t2p->pdf_subject[sizeof(t2p->pdf_subject) - 1] = '\0';
+            //     t2p->pdf_subject_set = 1;
+            //     break;
+            // case 'k':
+            //     strncpy(t2p->pdf_keywords, optarg,
+            //             sizeof(t2p->pdf_keywords) - 1);
+            //     t2p->pdf_keywords[sizeof(t2p->pdf_keywords) - 1] = '\0';
+            //     t2p->pdf_keywords_set = 1;
+            //     break;
             case 'b':
                 t2p->pdf_image_interpolate = 1;
                 break;

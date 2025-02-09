@@ -1,3 +1,5 @@
+// removed
+// - o out.tif write output to out.tif
 /*
  * Copyright (c) 1990-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -55,7 +57,7 @@
 #define TIFFhowmany8(x)                                                        \
     (((x)&0x07) ? ((uint32_t)(x) >> 3) + 1 : (uint32_t)(x) >> 3)
 
-TIFF *faxTIFF;
+    TIFF *faxTIFF;
 char *rowbuf;
 char *refbuf;
 
@@ -107,8 +109,8 @@ int main(int argc, char *argv[])
     extern int optind;
     extern char *optarg;
 #endif
-
-    while ((c = getopt(argc, argv, "R:X:o:r:1234ABLMPUW5678abcflmprsuvwzh")) !=
+// removed o:
+    while ((c = getopt(argc, argv, "R:X:r:1234ABLMPUW5678abcflmprsuvwzh")) !=
            -1)
         switch (c)
         {
@@ -190,15 +192,15 @@ int main(int argc, char *argv[])
             case 'l': /* output's fillorder is lsb-to-msb */
                 fillorder_out = FILLORDER_LSB2MSB;
                 break;
-            case 'o':
-                out = TIFFOpen(optarg, "w");
-                if (out == NULL)
-                {
-                    fprintf(stderr, "%s: Can not create or open %s\n", argv[0],
-                            optarg);
-                    return EXIT_FAILURE;
-                }
-                break;
+            // case 'o':
+            //     out = TIFFOpen(optarg, "w");
+            //     if (out == NULL)
+            //     {
+            //         fprintf(stderr, "%s: Can not create or open %s\n", argv[0],
+            //                 optarg);
+            //         return EXIT_FAILURE;
+            //     }
+            //     break;
             case 'a': /* generate EOL-aligned output (g3 only) */
                 group3options_out |= GROUP3OPT_FILLBITS;
                 break;
