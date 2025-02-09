@@ -1,5 +1,3 @@
-// modified for VA Fuzz
-
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -26,6 +24,7 @@
 
 #include "libport.h"
 #include "tif_config.h"
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h> /* for atof */
@@ -281,9 +280,9 @@ int main(int argc, char *argv[])
     FILE *output = stdout;
 
     pageOrientation[0] = '\0';
-// removed b:d:h:H:W:L:M:i:w:l:o:O:P:C:r:t:
+
     while ((c = getopt(argc, argv,
-                       "acemxyzps1238DT")) !=
+                       "b:d:h:H:W:L:M:i:w:l:o:O:P:C:r:t:acemxyzps1238DT")) !=
            -1)
         switch (c)
         {

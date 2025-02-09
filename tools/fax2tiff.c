@@ -1,4 +1,3 @@
-// modified for VA Fuzz
 /*
  * Copyright (c) 1990-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -108,8 +107,8 @@ int main(int argc, char *argv[])
     extern int optind;
     extern char *optarg;
 #endif
-    // removed R:X:r:ho:
-    while ((c = getopt(argc, argv, "1234ABLMPUW5678abcflmprsuvwz")) !=
+
+    while ((c = getopt(argc, argv, "R:X:o:r:1234ABLMPUW5678abcflmprsuvwzh")) !=
            -1)
         switch (c)
         {

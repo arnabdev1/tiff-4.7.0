@@ -1,4 +1,3 @@
-// modified for VA Fuzz
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -78,22 +77,22 @@ int main(int argc, char *argv[])
     extern int optind;
     extern char *optarg;
 #endif
-    // removed z:h
-    while ((c = getopt(argc, argv, "lt")) != -1)
+
+    while ((c = getopt(argc, argv, "ltz:h")) != -1)
         switch (c)
         {
             case 'l':
                 stopondiff = 0;
                 break;
-            // case 'z':
-            //     stopondiff = atoi(optarg);
-            //     break;
+            case 'z':
+                stopondiff = atoi(optarg);
+                break;
             case 't':
                 stoponfirsttag = 0;
                 break;
-            // case 'h':
-            //     usage(EXIT_SUCCESS);
-            //     break;
+            case 'h':
+                usage(EXIT_SUCCESS);
+                break;
             case '?':
                 usage(2);
                 /*NOTREACHED*/

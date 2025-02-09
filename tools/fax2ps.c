@@ -1,4 +1,3 @@
-// modified for vafuzz
 /*
  * Copyright (c) 1991-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -349,8 +348,8 @@ int main(int argc, char **argv)
     uint16_t *pages = NULL, npages = 0, pageNumber;
     int c, dowarnings = 0; /* if 1, enable library warnings */
     TIFF *tif;
-// removed l:p:x:y:W:H:h
-    while ((c = getopt(argc, argv, "wS")) != -1)
+
+    while ((c = getopt(argc, argv, "l:p:x:y:W:H:wSh")) != -1)
         switch (c)
         {
             case 'H': /* page height */

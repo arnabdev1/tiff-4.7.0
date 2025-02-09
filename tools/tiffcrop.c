@@ -1,4 +1,3 @@
-// Modified for VA Fuzz
 /* clang-format off */
 /* tiffcrop.c -- a port of tiffcp.c extended to include manipulations of
  * the image data through additional options listed below
@@ -1849,10 +1848,9 @@ void process_command_opts(int argc, char *argv[], char *mp, char *mode,
 
     *mp++ = 'w';
     *mp = '\0';
-    // removed c:d:e:f:hk:l:m:p:r:w:z:D:E:F:H:I:J:K:N:O:P:R:vS:U:V:X:Y:Z:"
     while ((c = getopt(argc, argv,
-                       "aistBCLM"
-                       "")) != -1)
+                       "ac:d:e:f:hik:l:m:p:r:stvw:z:BCD:E:F:H:I:J:K:LMN:O:P:R:"
+                       "S:U:V:X:Y:Z:")) != -1)
     {
         good_args++;
         switch (c)

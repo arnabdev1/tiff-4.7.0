@@ -1,4 +1,3 @@
-// modified for VA Fuzz
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -222,90 +221,89 @@ int main(int argc, char *argv[])
 
     *mp++ = 'w';
     *mp = '\0';
-    // removed  m:,:b:r:l:w:c:f:p:o:
-    while ((c = getopt(argc, argv, "aistBLMC8xh")) != -1)
+    while ((c = getopt(argc, argv, "m:,:b:c:f:l:o:p:r:w:aistBLMC8xh")) != -1)
         switch (c)
         {
-            // case 'm':
-            //     maxMalloc = (tmsize_t)strtoul(optarg, NULL, 0) << 20;
-            //     break;
-            // case ',':
-            //     if (optarg[0] != '=')
-            //         usage(EXIT_FAILURE);
-            //     comma = optarg[1];
-            //     break;
-            // case 'b': /* this file is bias image subtracted from others */
-            //     if (bias)
-            //     {
-            //         fputs("Only 1 bias image may be specified\n", stderr);
-            //         exit(EXIT_FAILURE);
-            //     }
-            //     {
-            //         uint16_t samples = (uint16_t)-1;
-            //         char **biasFn = &optarg;
-            //         bias = openSrcImage(biasFn);
-            //         if (!bias)
-            //             exit(EXIT_FAILURE);
-            //         if (TIFFIsTiled(bias))
-            //         {
-            //             fputs("Bias image must be organized in strips\n",
-            //                   stderr);
-            //             exit(EXIT_FAILURE);
-            //         }
-            //         TIFFGetField(bias, TIFFTAG_SAMPLESPERPIXEL, &samples);
-            //         if (samples != 1)
-            //         {
-            //             fputs("Bias image must be monochrome\n", stderr);
-            //             exit(EXIT_FAILURE);
-            //         }
-            //     }
-            //     break;
+            case 'm':
+                maxMalloc = (tmsize_t)strtoul(optarg, NULL, 0) << 20;
+                break;
+            case ',':
+                if (optarg[0] != '=')
+                    usage(EXIT_FAILURE);
+                comma = optarg[1];
+                break;
+            case 'b': /* this file is bias image subtracted from others */
+                if (bias)
+                {
+                    fputs("Only 1 bias image may be specified\n", stderr);
+                    exit(EXIT_FAILURE);
+                }
+                {
+                    uint16_t samples = (uint16_t)-1;
+                    char **biasFn = &optarg;
+                    bias = openSrcImage(biasFn);
+                    if (!bias)
+                        exit(EXIT_FAILURE);
+                    if (TIFFIsTiled(bias))
+                    {
+                        fputs("Bias image must be organized in strips\n",
+                              stderr);
+                        exit(EXIT_FAILURE);
+                    }
+                    TIFFGetField(bias, TIFFTAG_SAMPLESPERPIXEL, &samples);
+                    if (samples != 1)
+                    {
+                        fputs("Bias image must be monochrome\n", stderr);
+                        exit(EXIT_FAILURE);
+                    }
+                }
+                break;
             case 'a': /* append to output */
                 mode[0] = 'a';
                 break;
-            // case 'c': /* compression scheme */
-            //     if (!processCompressOptions(optarg))
-            //         usage(EXIT_FAILURE);
-            //     break;
-            // case 'f': /* fill order */
-            //     if (streq(optarg, "lsb2msb"))
-            //         deffillorder = FILLORDER_LSB2MSB;
-            //     else if (streq(optarg, "msb2lsb"))
-            //         deffillorder = FILLORDER_MSB2LSB;
-            //     else
-            //         usage(EXIT_FAILURE);
-            //     break;
+            case 'c': /* compression scheme */
+                if (!processCompressOptions(optarg))
+                    usage(EXIT_FAILURE);
+                break;
+            case 'f': /* fill order */
+                if (streq(optarg, "lsb2msb"))
+                    deffillorder = FILLORDER_LSB2MSB;
+                else if (streq(optarg, "msb2lsb"))
+                    deffillorder = FILLORDER_MSB2LSB;
+                else
+                    usage(EXIT_FAILURE);
+                break;
             case 'i': /* ignore errors */
                 ignore = TRUE;
                 break;
-            // case 'l': /* tile length */
-            //     outtiled = TRUE;
-            //     deftilelength = atoi(optarg);
-            //     break;
+            case 'l': /* tile length */
+                outtiled = TRUE;
+                deftilelength = atoi(optarg);
+                break;
             case 'o': /* initial directory offset */
                 diroff = strtoul(optarg, NULL, 0);
                 break;
-            // case 'p': /* planar configuration */
-            //     if (streq(optarg, "separate"))
-            //         defconfig = PLANARCONFIG_SEPARATE;
-            //     else if (streq(optarg, "contig"))
-            //         defconfig = PLANARCONFIG_CONTIG;
-            //     else
-            //         usage(EXIT_FAILURE);
-            //     break;
-            // case 'r': /* rows/strip */
-            //     defrowsperstrip = atol(optarg);
-            //     break;
+            case 'p': /* planar configuration */
+                if (streq(optarg, "separate"))
+                    defconfig = PLANARCONFIG_SEPARATE;
+                else if (streq(optarg, "contig"))
+                    defconfig = PLANARCONFIG_CONTIG;
+                else
+                    usage(EXIT_FAILURE);
+                break;
+            case 'r': /* rows/strip */
+                defrowsperstrip = atol(optarg);
+                break;
             case 's': /* generate stripped output */
                 outtiled = FALSE;
                 break;
             case 't': /* generate tiled output */
                 outtiled = TRUE;
                 break;
-            // case 'w': /* tile width */
-            //     outtiled = TRUE;
-            //     deftilewidth = atoi(optarg);
-            //     break;
+            case 'w': /* tile width */
+                outtiled = TRUE;
+                deftilewidth = atoi(optarg);
+                break;
             case 'B':
                 if (strlen(mode) < (sizeof(mode) - 1))
                 {

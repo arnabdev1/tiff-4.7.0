@@ -1,4 +1,3 @@
-// modified for vafuzz
 /*
  * Copyright (c) 1988-1997 Sam Leffler
  * Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -82,8 +81,8 @@ int main(int argc, char *argv[])
     long flags = 0;
     uint64_t diroff = 0;
     int chopstrips = 0; /* disable strip chopping */
-                        // removed f:M:vhSlmo:
-    while ((c = getopt(argc, argv, "cdDjirswz0123456789")) != -1)
+
+    while ((c = getopt(argc, argv, "f:o:M:cdDSjilmrsvwz0123456789h")) != -1)
         switch (c)
         {
             case '0':

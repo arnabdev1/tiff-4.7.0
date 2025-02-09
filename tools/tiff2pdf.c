@@ -1,4 +1,3 @@
-// modified for VA Fuzz
 /*
  *
  * tiff2pdf - converts a TIFF image to a PDF document
@@ -680,10 +679,10 @@ int main(int argc, char **argv)
         TIFFError(TIFF2PDF_MODULE, "Can't initialize context");
         goto fail;
     }
-    // removed m:o:q:u:x:y:w:l:r:p:e:c:a:t:s:k:h
+
     while (argv &&
            (c = getopt(argc, argv,
-                       "jzndifbF")) != -1)
+                       "m:o:q:u:x:y:w:l:r:p:e:c:a:t:s:k:jzndifbhF")) != -1)
     {
         switch (c)
         {
@@ -824,9 +823,9 @@ int main(int argc, char **argv)
             case 'b':
                 t2p->pdf_image_interpolate = 1;
                 break;
-            // case 'h':
-            //     usage_info(EXIT_SUCCESS);
-            //     goto success;
+            case 'h':
+                usage_info(EXIT_SUCCESS);
+                goto success;
             case '?':
                 usage_info(EXIT_FAILURE);
                 goto fail;
